@@ -8,7 +8,7 @@ import Hairdresser, { Home as HairdresserHome, About, ServicesPage, ApplyNow, Fi
 
 //======================== Main UI -> Portfolio Page ===================================================
 // Name: Krystan Kornafel
-// Assignment: SEG3125 Assignment 2
+// Assignment: SEG3125 Assignment 3
 // Description: This is the main React page that will be used to display all the required information. There are 4 cards that can be clicked on. Each one will redirect the user to the specified page.
 
 
@@ -89,52 +89,6 @@ function Home()  {
 }
 
 
-//======================= Hairdresser Page and Subpages ===================================================
-// function Hairdresser() {
-//   return (
-    
-//       <div className="row">
-//         <aside className="col-md-2">
-//           <div className="list-group">
-//             <Link to="/hairdresser" className="list-group-item list-group-item-action">Home</Link>
-//             <Link to="/hairdresser/about" className="list-group-item list-group-item-action">About Us</Link>
-//             <Link to="/hairdresser/applyNow" className="list-group-item list-group-item-action">We're Hiring!</Link>
-//             <Link to="/hairdresser/bookAppointment" className="list-group-item list-group-item-action">Book Appointment</Link>
-//             <Link to="/hairdresser/contactUs" className="list-group-item list-group-item-action">Contact Us</Link>
-//           </div>
-//         </aside>
-//         <main className="col-md-10">
-//           <Outlet />
-//         </main>
-//       </div>
-//   );
-// // }
-// function HairdresserHome() { 
-//     return ( <div className="container mt-4"><h1>Home page display!</h1>
-//     <Link to="/hairdresser" className="list-group-item list-group-item-action">Home</Link></div>);
-//  }
-
-// function HairdresserAbout() { 
-//     return ( <div className="container mt-4"><h1>About us</h1>
-//     <Link to="/hairdresser/about" className="list-group-item list-group-item-action">We are family owned!</Link></div>);
-//  }
-
-//  function HairdresserApplyNow() { 
-//     return ( <div className="container mt-4"><h1>Apply Now!</h1>
-//     <Link to="/hairdresser/applyNow" className="list-group-item list-group-item-action">We're Hiring!</Link></div>);
-//  }
-
-// function HairdresserBookAppointment() { 
-//     return ( <div className="container mt-4"><h1>Book an Appointment</h1>
-//     <Link to="/hairdresser/bookAppointment" className="list-group-item list-group-item-action">Book an Appointment</Link></div>);
-//  }
-
-//  function HairdresserContactUs() { 
-//     return ( <div className="container mt-4"><h1>Contact Us</h1>
-//     <Link to="/hairdresser/contactUs" className="list-group-item list-group-item-action">Contact Us</Link></div>);
-//  }
-
-
 ///======================= Other Main UI Pages ===================================================
 
 function Analytics() { 
@@ -185,6 +139,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
 
+
             {/* References for the Hairdresser page and subpages */}
             <Route path="/hairdresser" element={<Hairdresser />}>
               <Route index element={<HairdresserHome />} />
@@ -196,15 +151,20 @@ function App() {
               {/* <Route path="FinalPgAppointment" element={<FinalPgAppointment />} />
               <Route path="FinalPgApply" element={<FinalPgApply />} /> */}
             </Route>
-
             {/* References added to the subpages connected to the ApplyNow and BookAppointment forms */}
             <Route path="/FinalPgAppointment" element={<FinalPgAppointment />} />
             <Route path="/FinalPgApply" element={<FinalPgApply />} />
 
+
             {/* The remainder of the card links are referenced here */}
             <Route path="/analytics" element={<Analytics />} />     
-            <Route path="/e-commerce" element={<ECommerceStore />} />       
-            <Route path="/memory-game" element={<MemoryGame />} />
+            <Route path="/e-commerce" element={<ECommerceStore />} />   
+
+
+                {/* Below is all the routing for the memory game */}
+            <Route path="/memory-game" element={<MemoryGame />}>
+                {/* Put all the routes here for the menu bar of the memory game, if and as needed */}
+            </Route>
 
           </Routes>
     </BrowserRouter>
