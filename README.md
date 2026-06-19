@@ -1,7 +1,14 @@
-Description: This code was written by Krystan Kornafel for Assignment 2. The purpose of this assignment was to design and implement a website UI for a service site, which in this case is a hair salon called "Chique Hairstylez". 
+Description: This code was written by Krystan Kornafel for Assignment 3. The purpose of this assignment was to design and implement a website UI for a memory game webiste. The game is called "NumImajez", and the description of the game is presented below.
 
-GenAI Acknowledgement: I used Copilot (Microsoft’s GenAI) and Gemini (Google’s GenAI) for the purpose of generating all the images for the Hairstyler website, such as "80s_hairStyling.png" and "Main_Pg_Backgrnd.png".
+Flow of the game:
+1. Select the level, category and colour theme
+2. The grid of images will be shown on the screen in a random order
+3. The system from the back-end will randomly generate a number of items
+4. The user will be asked to identify and remember which images had the number of items that the system requested
+5. When the timer runs out, the images will be hidden, and the user will be requested to select the correct images that matched the number of items requested
+6. The user will then be notified if they selected the correct ones
 
+GenAI Acknowledgement: Some of my images were created by Copilot and Gemini
 
 My work can be found in the following folders:
 1. /public -> This is where all the card UIs are stored, such as Hairdresser, MemoryGame, EccommerceStore, and Analytics.
