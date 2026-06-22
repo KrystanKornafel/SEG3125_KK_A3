@@ -5,6 +5,8 @@ import './App.css'
 //import Hairdresser from '../public/Hairdresser';
 import Hairdresser, { Home as HairdresserHome, About, ServicesPage, ApplyNow, FinalPgApply, BookAppointment, FinalPgAppointment, ContactUs } from '../public/Hairdresser'
 //import Hairdresser, { Home as HairdresserHome, About as HairdresserAbout, ApplyNow as HairdresserApplyNow, BookAppointment as HairdresserBookAppointment, ContactUs as HairdresserContactUs } from '../public/Hairdresser';
+import MemoryGame, {GameHome, GameStartPage, DecisionPage, ResultsPage} from '../public/MemoryGame';
+
 
 //======================== Main UI -> Portfolio Page ===================================================
 // Name: Krystan Kornafel
@@ -99,9 +101,9 @@ function ECommerceStore() {
   return <div className="container mt-4"><h1>E-Commerce Store</h1></div>;
  }
 
-function MemoryGame() { 
-   return <div className="container mt-4"><h1>Memory Game</h1></div>;
- }
+// function MemoryGame() { 
+//    return <div className="container mt-4"><h1>Memory Game</h1></div>;
+//  }
 
  //May need to comment out, as Navbar only needed for Hairdresser page
 function Navbar() {
@@ -118,10 +120,10 @@ function Navbar() {
           {/* <div className="navbar-nav"> */}
             <li className="nav-item me-3"><Link className="nav-link" to="/">My Portfolio</Link></li>
             {/* <Link className="nav-link text-white" to="/about">About</Link> */}
-            {/* <li className="nav-item me-3"><Link className="nav-link" to="/hairdresser">Hairdresser</Link></li>
+            <li className="nav-item me-3"><Link className="nav-link" to="/hairdresser">Hairdresser</Link></li>
             <li className="nav-item me-3"><Link className="nav-link" to="/analytics">Analytics</Link></li>
             <li className="nav-item me-3"><Link className="nav-link" to="/e-commerce">E-Commerce</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/memory-game">Memory Game</Link></li> */}
+            <li className="nav-item"><Link className="nav-link" to="/memory-game">Memory Game</Link></li>
           {/* </div> */}
         {/* </div> */}
         </ul>
@@ -162,9 +164,13 @@ function App() {
 
 
                 {/* Below is all the routing for the memory game */}
-            <Route path="/memory-game" element={<MemoryGame />}>
+            <Route path="/memory-game" element={<MemoryGame />} >
                 {/* Put all the routes here for the menu bar of the memory game, if and as needed */}
-            </Route>
+                <Route index element={<GameHome />} />
+                <Route path="start" element={<GameStartPage />} />
+                <Route path="decision" element={<DecisionPage />} /> 
+                <Route path="results" element={<ResultsPage/>} />
+            </Route> 
 
           </Routes>
     </BrowserRouter>
