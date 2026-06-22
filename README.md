@@ -8,7 +8,7 @@ Flow of the game:
 5. When the timer runs out, the images will be hidden, and the user will be requested to select the correct images that matched the number of items requested
 6. The user will then be notified if they selected the correct ones
 
-GenAI Acknowledgement: Some of my images were created by Copilot and Gemini
+GenAI Acknowledgement: Some of my images were created by Copilot and Gemini. My timer was created by ChatGPT for the purpose of setting and displaying time.
 
 My work can be found in the following folders:
 1. /public -> This is where all the card UIs are stored, such as Hairdresser, MemoryGame, EccommerceStore, and Analytics
