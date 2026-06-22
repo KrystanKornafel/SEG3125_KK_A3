@@ -11,6 +11,7 @@ import { useEffect} from 'react';
 //======================== Memory Game Page ====================================================================================
 // Name: Krystan Kornafel
 // Assignment: SEG3125 Assignment 3
+// Please note! All the images were created by Copilot and Gemini
 // Description: This will be used as the main UI for the memory game site. It will call on subpages such as the GamePage.jsx, DecisionPage.jsx,
 // and the ResultsPage.jsx, which display all the required components of each step in the game. Steps include: Select your level, category and 
 // contrast type (done from the home page here), then go to the GameStartPage where the actualy images will be displayed and the timer will start.
