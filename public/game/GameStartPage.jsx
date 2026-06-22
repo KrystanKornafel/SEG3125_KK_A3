@@ -29,7 +29,9 @@ import { useEffect} from 'react';
 
 // This function is used to setup the view, based off the parameters that were sent from the MemoryGame.jsx 
 function GameSetup (){
-      const [timeLeft, setTimeLeft] = useState(120);
+      const [timeLeft, setTimeLeft] = useState(30); //Give the user 30s before the images disappear
+      // const [hideCards, setHideCards] = useState(false);
+
       const navigate = useNavigate();
       // {/* To receive the values from the user selections that were sent from MemoryGame.jsx, the reference was: https://reactrouter.com/6.30.4/start/tutorial */}
       // I also used: https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m
@@ -135,18 +137,23 @@ function GameSetup (){
           // Call this function to update the value associated with the image. The image is identified by the ID, which is "i" for the index
           let itemNum = SetItemNumber(`${contrast}`, `${category}`, `${level}`, i);
 
+          let imagesSource;
           // Assign the path of each image to the "imagesSource" array
-          let imagesSource = `/game/GameImages/${category}/${contrast}/${level}/${images[i]}.png`;
+          if (timeLeft == 0){ // means the timer ran out and the images need to be hidden
+            imagesSource = `/game/GameImages/HiddenImage.png`;
+          } else {
+            //means that the timer is still going, so leave the proper images there
+            imagesSource = `/game/GameImages/${category}/${contrast}/${level}/${images[i]}.png`;
+          }
           
           // Reference for push: https://www.w3schools.com/jsref/jsref_push.asp 
-          // Copilot suggested to add the one line (line 84) below to make it easier to access the elements of the imagesSource array
-          // I made some changes to this line (line 84) to meet my requirements.
+          // Copilot suggested to add the one line (line 155) below to make it easier to access the elements of the imagesSource array
+          // I made some changes to this line (line 155) to meet my requirements.
           // If the image is clicked, "onClick" will be called to push the Id number "i" and the number of items per that image, called "itemNum" to the array called "isClickedImg".
           // imageElements.push(<img key={i} src={imagesSource[i]} className="float-start me-3 rounded d-flex justify-content-center align-items-center" onClick={() => StoreImageRef(`img${i}`, itemNum)} style={{ width: "250px", cursor: 'pointer' }} alt={`img${i}`}/>);
           // imageElements.push(<img key={i} src={imagesSource} className="float-start me-3 rounded d-flex justify-content-center align-items-center" onClick={() => isClickedImgs.push({ id: i, count: itemNum })} style={{ width: "250px", cursor: 'pointer' }} alt={`img${i}`}/>);
-          imageElements.push(<img key={i} src={imagesSource} className="float-start me-3 rounded d-flex justify-content-center align-items-center" onClick={() =>  setIsClickedImages(prev => [...prev, { id: i, count: itemNum }])} style={{ width: "250px", cursor: 'pointer' }} alt={`img${i}`}/>);
+          imageElements.push(<img key={i} src={imagesSource} className="float-start rounded d-flex justify-content-center align-items-center" onClick={() =>  setIsClickedImages(prev => [...prev, { id: i, count: itemNum }])} style={{ width: "200px",  maxHeight: "200px", cursor: 'pointer', border: isClickedImages.some(img => img.id === i) ? '5px solid #e326c4' : '3px solid transparent' }} alt={`img${i}`}/>);
       }
-
 
       //Check that all the images that the user selected had the same number of items as the system wanted.
       //There are 2 parameters, the array of selected images, and the number of items that the system asked for
@@ -214,6 +221,33 @@ function GameSetup (){
       }, []);
 
 
+      // function hideImages(){
+      //   for (let i = 0; i < numOfImgs; i++){
+      //     //Add to the array the number of items for the image.
+      //     // Call this function to update the value associated with the image. The image is identified by the ID, which is "i" for the index
+      //     let itemNum = SetItemNumber(`${contrast}`, `${category}`, `${level}`, i);
+
+      //     // Assign the path of each image to the "imagesSource" array
+      //     let imagesSource = `/game/GameImages/HiddenImage.png`;
+          
+      //     // Reference for push: https://www.w3schools.com/jsref/jsref_push.asp 
+      //     // Copilot suggested to add the one line (line 84) below to make it easier to access the elements of the imagesSource array
+      //     // I made some changes to this line (line 84) to meet my requirements.
+      //     // If the image is clicked, "onClick" will be called to push the Id number "i" and the number of items per that image, called "itemNum" to the array called "isClickedImg".
+      //     // imageElements.push(<img key={i} src={imagesSource[i]} className="float-start me-3 rounded d-flex justify-content-center align-items-center" onClick={() => StoreImageRef(`img${i}`, itemNum)} style={{ width: "250px", cursor: 'pointer' }} alt={`img${i}`}/>);
+      //     // imageElements.push(<img key={i} src={imagesSource} className="float-start me-3 rounded d-flex justify-content-center align-items-center" onClick={() => isClickedImgs.push({ id: i, count: itemNum })} style={{ width: "250px", cursor: 'pointer' }} alt={`img${i}`}/>);
+      //     <img key={i} src={imagesSource} className="float-start me-3 rounded d-flex justify-content-center align-items-center" onClick={() =>  setIsClickedImages(prev => [...prev, { id: i, count: itemNum }])} style={{ width: "250px", cursor: 'pointer' }} alt={`img${i}`}/>
+      //   }
+      // }
+
+      // Once timer runs out, hide all the images
+      // useEffect(() => {
+      //   if (timeLeft === 0) {
+      //     // hideImages();
+      //     setHideCards(true);
+      //   }
+      // }, [timeLeft]);
+
       //next step is passing the array of clicked images to another function for processing. 
       // Give it the value the system chose, and give it the array of clicked images.
       //Then determine if ALL the images that were clicked have the right number of items. 
@@ -221,26 +255,26 @@ function GameSetup (){
       
       // Return the images to be displayed in the UI to the user.
       return (
-         <>
+         <div className = "d-flex flex-column justify-content-center align-items-center text-center">
           <h2 style={{color: '#3d0454', textShadow: '2px 3px 10px #c36ed6', align: 'center'}}>Select all the images that have {systemNum} items</h2>
           <h6>Note! If none of the images have {systemNum} items, just hit submit!</h6>
           {/* This is where the image grid should go */}
           {/* // The next 3 lines (lines 187-190) were suggested by Copilot. Basically everything in the <section> tag */}
-          <section className="m-9 grid grid-cols-2 justify-items-center align-items-center gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="m-9 grid grid-cols-2 justify-items-center align-items-center gap-3">
             {imageElements}
           </section>
           {/* The timer needs to be called, and all the images need to become hidden */}
-          <p>The time used is: {timeLeft}</p>
+          <br/><p>The time used is: {timeLeft}</p>
           {/* Use the CheckAllItems function to verify the user selected the correct images. Return true or false, depending on whether they passed or failed */}
           {/* This is the last step for this UI before going to the DecisionPage.jsx */}
-          <button className="btn btn-primary d-flex justify-content-center align-items-center" onClick={() => CheckAllImgsGood()}>Submit</button>              
+          <br/><button className="btn btn-primary d-flex justify-content-center align-items-center" onClick={() => CheckAllImgsGood()}>Submit</button>              
                   
           {/* // //After all that, we can now navigate to the Decision page! We need to pass the parameter to it, which says if the user passed or failed the game.
           // //Send to DecisionPage.jsx the value of "gamePassed"
           // const navigate = useNavigate();
           // Once everything is done, go to the next page: DecisionPage.jsx
           //  navigate('/memory-game/decision', { replace: true,  state: { gamePassed }} //MAKE SURE YOU PASS THE T/F parameter SO THAT DecisionPage knows which image to display */}
-      </>
+      </div>
       );
       
     
@@ -336,8 +370,8 @@ function GameStartPage() {
       {/* Third section of the Home page */}
       <div className="container mt-5 d-flex justify-content-center align-items-center">
         <div style={{ display: "flex", gap: "2px"}}>
-          <div className="d-flex justify-content-center align-items-center" style={{ backgroundColor: '#BEC7EE', width: "700px", height: "700px"}}><br/>
-              <div style={{ backgroundColor: '#DBEDED', width: "550px", height: "500px"}}><br/>
+          <div className="d-flex justify-content-center align-items-center" style={{ backgroundColor: '#BEC7EE', width: "700px", height: "800px"}}><br/>
+              <div style={{ backgroundColor: '#DBEDED', width: "550px", height: "700px"}}><br/>
                 {/* This is where the image grid should go */}
                 {/* call the gameSetup() function to set the game up for whatever settings were configured by the user on the previous page (MemoryGame.jsx)*/}
                 <GameSetup />

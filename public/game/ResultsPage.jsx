@@ -1,7 +1,7 @@
 // import { set } from 'react-datepicker/dist/dist/date_utils.js';
 import './ResultsPage.css'
 import { useLocation } from "react-router-dom";
-
+import { useNavigate } from 'react-router-dom';
 // This image will be used to determine which image to display (Is it the "Yay! you won!" image, or display "you failed" image?)
 // function DecideImageDisplay (){
 //     return (
@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 
 
 function ResultsPage() {
+    const navigate = useNavigate();
     const location = useLocation();
     const { gamePassed } = location.state || {};
 
@@ -63,18 +64,25 @@ function ResultsPage() {
       {/* Display the text to the user */}
       <div className="container mt-5 d-flex justify-content-center align-items-center">
         <div style={{ display: "flex", gap: "2px"}}>
-          <div className="d-flex justify-content-center align-items-center" style={{ backgroundColor: '#BEC7EE', width: "700px", height: "600px"}}><br/>
-              <div style={{ backgroundColor: '#DBEDED', width: "550px", height: "500px"}}><br/>
-                    <h1 style={{ color: '#000000'}}>{displayText}<br/><br /></h1>
+          <div className="d-flex justify-content-center align-items-center" style={{ backgroundColor: '#BEC7EE', width: "700px", height: "800px"}}><br/>
+              <div style={{ backgroundColor: '#DBEDED', width: "550px", height: "700px"}}><br/>
+                    <h1 style={{ color: '#000000'}}>{displayText}<br /></h1>
+              
+                <div><br/>  
+                    {/* Add the parameter to say "pass" or "failed" */}
+                    <img src={imgPathName} className="me-3 rounded" style={{ width: "400px" }} alt="logo" /> <br/>
+                </div>
+                <div><br/>  
+                    {/* Prompt the user to go to the main page */}
+                    {/* <br /><br/><br/><button className="btn btn-primary d-flex justify-content-center align-items-center" onClick={() => navigate('/memory-game/results', { pass in the level, contrast, and category from this round if the user asks to try again)}>Submit</button> */}
+                    <br/><p style={{ color: '#181a59', textShadow: '2px 5px 8px #c36ed6', align: 'center'}}>Return to the main page to try another game!</p>
+                    <br/><button className="btn btn-primary justify-content-center align-items-center" style={{width: "100px"}} onClick={() => navigate('/memory-game/')}>OK</button>
+                </div>
               </div>
-              <div style={{ backgroundColor: '#DBEDED', width: "550px", height: "500px"}}><br/>  
-                {/* Add the parameter to say "pass" or "failed" */}
-              <img src={imgPathName} className="float-start me-3 rounded" style={{ width: "400px" }} alt="logo" />
-            </div>
           </div>
         </div>
       </div>
-      
+
         {/* Third section of the Home page, the footer */}
         <div className="container mt-5">
             <div className="mb-5">

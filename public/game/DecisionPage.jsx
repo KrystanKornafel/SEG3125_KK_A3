@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './DecisionPage.css'
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
@@ -6,6 +7,7 @@ function DecisionPage() {
 	const navigate = useNavigate();
     const location = useLocation();
     const { gamePassed } = location.state || {};
+    const [choice, setChoice] = useState("");
     // let imgPathName;
 
     // function SetProperImg (){
@@ -19,6 +21,8 @@ function DecisionPage() {
     // }
 
     // imgPathName = SetProperImg();
+
+
 
     return (
     //Reference used for background colour: https://www.w3schools.com/cssref/pr_background-color.php
@@ -60,12 +64,19 @@ function DecisionPage() {
       <div className="container mt-5 d-flex justify-content-center align-items-center">
         <div style={{ display: "flex", gap: "2px"}}>
           <div className="d-flex justify-content-center align-items-center" style={{ backgroundColor: '#BEC7EE', width: "700px", height: "700px"}}><br/>
-            <div style={{ backgroundColor: '#DBEDED', width: "550px", height: "500px"}}><br/>  
+            <div className = "d-flex flex-column justify-content-center align-items-center text-center" style={{ backgroundColor: '#DBEDED', width: "550px", height: "500px"}}><br/>  
                 {/* Add the parameter to say "pass" or "failed" */}
                 <p className = "d-flex justify-content-center align-items-center" style={{ color: '#000000', fontSize: "20px", fontWeight: 700, textAlign: 'center'}}>Do you want to try again?<br/><br /></p>
-            </div>
-            <div style={{ backgroundColor: '#DBEDED', width: "550px", height: "500px"}}><br/>   
-                <br /><br/><br/><button className="btn btn-primary d-flex justify-content-center align-items-center" onClick={() => navigate('/memory-game/results', { replace: true, state: {gamePassed}})}>Submit</button>
+            {/* </div> */}
+            {/* <div className = "d-flex flex-column justify-content-center align-items-center text-center" style={{ backgroundColor: '#DBEDED', width: "550px", height: "500px"}}><br/>  */}
+                <br/><br/><p>Make your choice here!</p>
+                {/* '/memory-game/results' or '/memory-game/'*/}
+                <select id="choice" style={{ textAlign: 'center', width: '300px' }} value={choice} onChange={(e) => setChoice(e.target.value)}>
+                    <option value="">Select</option>
+                    <option value="/memory-game/">YES</option>
+                    <option value="/memory-game/results">NO!</option>
+                </select>
+                <br /><br/><br/><button className="btn btn-primary d-flex justify-content-center align-items-center" onClick={() => navigate(`${choice}`, { replace: true, state: {gamePassed}})}>Submit</button>
             </div>
           </div>
         </div>
